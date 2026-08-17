@@ -1,0 +1,10 @@
+package org.ledgarerk.system.mapper;
+
+
+import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import org.apache.ibatis.annotations.Mapper;
+import org.ledgerark.common.entity.SysUser;
+
+@Mapper
+public interface SysUserMapper extends BaseMapper<SysUser> {
+}
