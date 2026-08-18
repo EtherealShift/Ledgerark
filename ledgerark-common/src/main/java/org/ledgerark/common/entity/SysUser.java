@@ -52,14 +52,6 @@ public class SysUser extends BaseEntity {
     // 用户角色
     private String roleType;
 
-    // 创建者
-    private String createBy;
-
-    // 创建时间
-    private Date createTime;
-
-    // 更新时间
-    private Date updateTime;
 
     /**
      * 校验用户登陆状态

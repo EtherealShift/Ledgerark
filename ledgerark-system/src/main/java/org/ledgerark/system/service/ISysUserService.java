@@ -1,4 +1,4 @@
-package org.ledgarerk.system.service;
+package org.ledgerark.system.service;
 
 import org.ledgerark.common.entity.SysUser;
 

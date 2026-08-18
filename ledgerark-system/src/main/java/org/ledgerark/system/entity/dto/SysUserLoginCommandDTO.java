@@ -1,4 +1,4 @@
-package org.ledgarerk.system.entity.dto;
+package org.ledgerark.system.entity.dto;
 
 
 import jakarta.validation.constraints.NotBlank;

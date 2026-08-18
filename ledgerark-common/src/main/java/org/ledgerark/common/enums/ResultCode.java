@@ -32,6 +32,7 @@ public enum ResultCode {
     USER_NOT_LOGIN("A0141", "用户未登录"),
     USER_LOGIN_EXPIRED("A0142", "用户登录过期"),
 
+
     // ========== 权限相关 A022x ==========
     USER_PERMISSION_DENIED("A0220", "用户权限不足"),
     USER_ROLE_INVALID("A0221", "用户角色无效"),
@@ -56,7 +57,10 @@ public enum ResultCode {
     FILE_DELETE_FAILED("B1003", "文件删除失败"),
 
     // ========== 业务相关 ==========
-    BUSINESS_ERROR("B0002", "业务处理失败");
+    BUSINESS_ERROR("B0002", "业务处理失败"),
+    USERNAME_OR_PASSWORD_EMPTY("B0003", "用户名或密码为空"),
+    USERNAME_LENGTH_ERROR("B0004", "用户名长度错误"),
+    PASSWORD_LENGTH_ERROR("B0005", "密码长度错误");
 
 
 

@@ -1,20 +1,17 @@
-package org.ledgarerk.system.service.Impl;
+package org.ledgerark.system.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import jakarta.annotation.Resource;
-import org.ledgarerk.system.mapper.SysUserMapper;
-import org.ledgarerk.system.service.ISysUserService;
+import org.ledgerark.system.mapper.SysUserMapper;
+import org.ledgerark.system.service.ISysUserService;
 import org.ledgerark.common.entity.SysUser;
 import org.ledgerark.common.enums.ResultCode;
 import org.ledgerark.common.exception.user.UserException;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 
 @Service
 public class ISysUserServiceImpl implements ISysUserService {
-
-    private final BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 
     @Resource
     private SysUserMapper userMapper;

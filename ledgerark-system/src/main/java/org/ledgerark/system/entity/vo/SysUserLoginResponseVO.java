@@ -1,4 +1,4 @@
-package org.ledgarerk.system.entity.vo;
+package org.ledgerark.system.entity.vo;
 
 
 import lombok.Builder;

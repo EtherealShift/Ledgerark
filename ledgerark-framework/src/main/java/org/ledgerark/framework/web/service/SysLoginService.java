@@ -1,6 +1,6 @@
 package org.ledgerark.framework.web.service;
 
-import org.ledgarerk.system.entity.vo.SysUserLoginResponseVO;
+import org.ledgerark.system.entity.vo.SysUserLoginResponseVO;
 
 public interface SysLoginService {
 

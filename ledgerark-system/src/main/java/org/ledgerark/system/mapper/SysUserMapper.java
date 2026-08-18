@@ -1,4 +1,4 @@
-package org.ledgarerk.system.mapper;
+package org.ledgerark.system.mapper;
 
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;

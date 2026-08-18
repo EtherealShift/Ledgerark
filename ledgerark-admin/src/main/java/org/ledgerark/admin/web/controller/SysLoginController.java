@@ -1,9 +1,10 @@
 package org.ledgerark.admin.web.controller;
 
 import jakarta.annotation.Resource;
-import org.ledgarerk.system.entity.vo.SysUserLoginResponseVO;
+import org.ledgerark.system.entity.vo.SysUserLoginResponseVO;
 import org.ledgerark.common.entity.Result;
 import org.ledgerark.framework.web.service.SysLoginService;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -22,7 +23,7 @@ public class SysLoginController {
      * @param password 密码
      * @return 结果
      */
-    @RequestMapping("/login")
+    @PostMapping("/login")
     public Result<SysUserLoginResponseVO> login(String username, String password) {
 
         SysUserLoginResponseVO token = loginService.login(username, password);
