@@ -24,10 +24,16 @@
             <artifactId>ledgerark-system</artifactId>
         </dependency>
 
+<!--        <dependency>-->
+<!--            <groupId>com.auth0</groupId>-->
+<!--            <artifactId>java-jwt</artifactId>-->
+<!--            <version>4.6.0</version>-->
+<!--        </dependency>-->
+
         <dependency>
-            <groupId>com.auth0</groupId>
-            <artifactId>java-jwt</artifactId>
-            <version>4.6.0</version>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-crypto</artifactId>
+            <!-- 不写版本号，由 Spring Boot BOM 统一管理，和 Boot 版本配套 -->
         </dependency>
 
     </dependencies>

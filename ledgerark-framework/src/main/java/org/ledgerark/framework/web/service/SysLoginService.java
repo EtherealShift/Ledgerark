@@ -1,6 +1,7 @@
 package org.ledgerark.framework.web.service;
 
-import org.ledgerark.system.entity.vo.SysUserLoginResponseVO;
+import org.ledgerark.system.entity.dto.SysUserLoginCommandDTO;
+import org.ledgerark.system.entity.dto.SysUserRegisterCommandDTO;
 
 public interface SysLoginService {
 
@@ -11,6 +12,8 @@ public interface SysLoginService {
      * @param password
      * @return
      */
-    SysUserLoginResponseVO login(String username, String password);
+    void login(SysUserLoginCommandDTO command);
+
+    void register(SysUserRegisterCommandDTO command);
 
 }

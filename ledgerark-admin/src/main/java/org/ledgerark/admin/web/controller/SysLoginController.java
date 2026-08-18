@@ -1,35 +1,48 @@
 package org.ledgerark.admin.web.controller;
 
 import jakarta.annotation.Resource;
-import org.ledgerark.system.entity.vo.SysUserLoginResponseVO;
+import lombok.extern.slf4j.Slf4j;
 import org.ledgerark.common.entity.Result;
 import org.ledgerark.framework.web.service.SysLoginService;
+import org.ledgerark.system.entity.dto.SysUserLoginCommandDTO;
+import org.ledgerark.system.entity.dto.SysUserRegisterCommandDTO;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 
+@Slf4j
 @RestController
-@RequestMapping("/login")
+@RequestMapping("/sys/user")
 public class SysLoginController {
-
 
     @Resource
     private SysLoginService loginService;
 
     /**
      * 登录方法
-     * @param username 用户名
-     * @param password 密码
+     * @param command 登录参数
      * @return 结果
      */
-    @PostMapping("/login")
-    public Result<SysUserLoginResponseVO> login(String username, String password) {
-
-        SysUserLoginResponseVO token = loginService.login(username, password);
-
-        return Result.success(token);
+    @PostMapping("/doLogin")
+    public Result<String> login(@RequestBody SysUserLoginCommandDTO command) {
+        // 调用服务层登录方法
+        loginService.login(command);
+        log.info("登录成功{}", command.getUsername());
+        return Result.success("登录成功");
     }
 
+    /**
+     * 注册方法
+     */
+    @PostMapping("/register")
+    public Result<String> register(@RequestBody SysUserRegisterCommandDTO command) {
+
+        loginService.register(command);
+
+        log.info("注册成功{}", command.getUsername());
+        return Result.success("注册成功");
+    }
 
 }

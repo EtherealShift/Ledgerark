@@ -1,14 +1,16 @@
 package org.ledgerark.framework.web.service.impl;
 
+import cn.dev33.satoken.stp.StpUtil;
 import jakarta.annotation.Resource;
 import org.apache.commons.lang3.StringUtils;
 import org.ledgerark.common.enums.ResultCode;
 import org.ledgerark.common.exception.user.UserException;
+import org.ledgerark.system.entity.dto.SysUserLoginCommandDTO;
+import org.ledgerark.system.entity.dto.SysUserRegisterCommandDTO;
 import org.ledgerark.system.entity.vo.SysUserLoginResponseVO;
 import org.ledgerark.system.service.ISysUserService;
 import org.ledgerark.common.constant.UserConstant;
 import org.ledgerark.common.entity.SysUser;
-import org.ledgerark.framework.util.JwtTokenUtils;
 import org.ledgerark.framework.web.service.SysLoginService;
 
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -22,34 +24,43 @@ public class SysLoginServiceImpl implements SysLoginService {
     private PasswordEncoder passwordEncoder;
 
     @Resource
-    private JwtTokenUtils jwtTokenUtils;
-
-    @Resource
     private  ISysUserService sysUserService;
 
 
     @Override
-    public SysUserLoginResponseVO login(String username, String password) {
+    public void login(SysUserLoginCommandDTO command) {
 
         // 登陆前校验
-        loginPreCheck(username, password);
+        loginPreCheck(command.getUsername(), command.getPassword());
 
-        SysUser user = sysUserService.selectUserByUserName(username);
+        SysUser user = sysUserService.selectUserByUserName(command.getUsername());
 
         // 校验密码
-        if (!passwordEncoder.matches(password, user.getPassword())) {
+        if (!passwordEncoder.matches(command.getPassword(), user.getPassword())) {
             throw new UserException(ResultCode.USER_PASSWORD_ERROR);
         }
 
-        // 生成JWT token
-        String token = jwtTokenUtils.generateToken(user.getId(), user.getUserName(), user.getRoleType());
+        // 构建用户信息
+        SysUserLoginResponseVO userInfo = SysUserLoginResponseVO.builder()
+                .username(user.getUserName()).email(user.getEmail())
+                .nickname(user.getNickName()).genderDisplayName(user.getSexName())
+                .userTypeDisplayName(user.convertRoleType())
+                .statusDisplayName(user.getStatusName()).build();
 
-        return SysUserLoginResponseVO.builder()
-                .token(token)
-                .roleType(user.getRoleType())
-                .detail(SysUserLoginResponseVO.entityToDetailResponse(user))
-                .build();
+        // 登录并生成token
+        StpUtil.login(user.getId());
+
+        // 将用户信息存储在Session中
+        StpUtil.getSession().set("userInfo", userInfo);
     }
+
+    @Override
+    public void register(SysUserRegisterCommandDTO command) {
+
+
+
+    }
+
 
 
     /**

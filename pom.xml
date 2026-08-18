@@ -30,6 +30,7 @@
         <mysql.version>26.7.0</mysql.version>
         <hutool.version>5.8.47</hutool.version>
         <mybatis-plus.version>3.5.17</mybatis-plus.version>
+        <sa-token.version>1.45.0</sa-token.version>
     </properties>
 
     <dependencyManagement>
@@ -87,6 +88,12 @@
                 <version>${ledgerark.version}</version>
             </dependency>
 
+
+            <dependency>
+                <groupId>cn.dev33</groupId>
+                <artifactId>sa-token-spring-boot4-starter</artifactId>
+                <version>${sa-token.version}</version>
+            </dependency>
 
 
         </dependencies>

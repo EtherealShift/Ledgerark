@@ -27,6 +27,21 @@ public enum RoleCode {
     private final String description;
 
 
+    /**
+     * 根据角色编码获取角色
+     * @param code
+     * @return
+     */
+    public static RoleCode fromCode(String code) {
+        for (RoleCode roleCode : RoleCode.values()) {
+            if (roleCode.getCode().equals(code)) {
+                return roleCode;
+            }
+        }
+        throw new IllegalArgumentException("Invalid Role code: " + code);
+    }
+
+
 
 
 }

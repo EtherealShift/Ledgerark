@@ -7,10 +7,10 @@ import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import org.ledgerark.common.enums.CommonStatus;
 import org.ledgerark.common.enums.RoleCode;
+import org.ledgerark.common.enums.SexStatus;
 
 
 import java.io.Serial;
-import java.util.Date;
 
 
 @EqualsAndHashCode(callSuper = true)
@@ -64,8 +64,7 @@ public class SysUser extends BaseEntity {
      * 转换用户角色
      */
     public String convertRoleType() {
-        return roleType.replace(RoleCode.ADMIN.getCode(), RoleCode.ADMIN.getName())
-                .replace(RoleCode.COMMON.getCode(), RoleCode.COMMON.getName());
+        return RoleCode.fromCode(roleType).getName();
     }
 
 
@@ -75,4 +74,13 @@ public class SysUser extends BaseEntity {
     public String getStatusName() {
         return CommonStatus.fromCode(status).getName();
     }
+
+
+    /**
+     * 显示用户性别
+     */
+    public String getSexName() {
+        return SexStatus.fromCode(sex).getName();
+    }
+
 }
