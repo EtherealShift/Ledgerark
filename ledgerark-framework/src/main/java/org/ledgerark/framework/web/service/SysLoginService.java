@@ -5,15 +5,17 @@ import org.ledgerark.system.entity.dto.SysUserRegisterCommandDTO;
 
 public interface SysLoginService {
 
-
     /**
-     *  登陆验证
-     * @param username
-     * @param password
-     * @return
+     * 登陆
+     * @param command
      */
     void login(SysUserLoginCommandDTO command);
 
+
+    /**
+     * 注册
+     * @param command
+     */
     void register(SysUserRegisterCommandDTO command);
 
 }

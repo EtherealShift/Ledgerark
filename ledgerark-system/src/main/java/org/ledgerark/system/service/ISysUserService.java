@@ -1,11 +1,13 @@
 package org.ledgerark.system.service;
 
 import org.ledgerark.common.entity.SysUser;
+import org.ledgerark.system.entity.dto.SysUserRegisterCommandDTO;
 
+
+/**
+ * 用户服务类
+ */
 public interface ISysUserService {
-
-
-//    public SysUserLoginResponseVO login(SysUserLoginCommandDTO commandDTO);
 
     /**
      * 通过用户名查询用户
@@ -14,6 +16,11 @@ public interface ISysUserService {
      * @return 用户对象信息
      */
     public SysUser selectUserByUserName(String userName);
+
+    /**
+     * 注册用户信息
+     */
+    public void insertUserInfo(SysUserRegisterCommandDTO userInfo);
 
 
 }

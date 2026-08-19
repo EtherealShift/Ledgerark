@@ -2,6 +2,7 @@ package org.ledgerark.framework.web.service.impl;
 
 import cn.dev33.satoken.stp.StpUtil;
 import jakarta.annotation.Resource;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.ledgerark.common.enums.ResultCode;
 import org.ledgerark.common.exception.user.UserException;
@@ -17,6 +18,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 
+@Slf4j
 @Service
 public class SysLoginServiceImpl implements SysLoginService {
 
@@ -57,7 +59,16 @@ public class SysLoginServiceImpl implements SysLoginService {
     @Override
     public void register(SysUserRegisterCommandDTO command) {
 
+        // 新增前校验
 
+
+        // 密码加密
+        String encode = passwordEncoder.encode(command.getPassword());
+        command.setPassword(encode);
+
+        // 新增用户
+        sysUserService.insertUserInfo(command);
+        log.info("用户注册成功，用户名：{}", command.getUsername());
 
     }
 

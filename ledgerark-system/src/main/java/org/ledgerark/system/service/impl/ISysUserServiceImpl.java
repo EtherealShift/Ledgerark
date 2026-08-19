@@ -2,6 +2,7 @@ package org.ledgerark.system.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import jakarta.annotation.Resource;
+import org.ledgerark.system.entity.dto.SysUserRegisterCommandDTO;
 import org.ledgerark.system.mapper.SysUserMapper;
 import org.ledgerark.system.service.ISysUserService;
 import org.ledgerark.common.entity.SysUser;
@@ -37,4 +38,22 @@ public class ISysUserServiceImpl implements ISysUserService {
 
         return user;
     }
+
+    @Override
+    public void insertUserInfo(SysUserRegisterCommandDTO userInfo) {
+
+        // 创建用户对象
+        SysUser user = new SysUser();
+        user.setUserName(userInfo.getUsername());
+        user.setNickName(userInfo.getNickname());
+        user.setEmail(userInfo.getEmail());
+        user.setPhoneNumber(userInfo.getPhoneNumber());
+        user.setSex(userInfo.getSex());
+        user.setPassword(userInfo.getPassword());
+
+        // 插入用户数据
+        userMapper.insert(user);
+
+    }
+
 }
