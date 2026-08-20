@@ -4,6 +4,7 @@ import cn.dev33.satoken.stp.StpUtil;
 import jakarta.annotation.Resource;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
+import org.ledgerark.common.entity.LoginUser;
 import org.ledgerark.common.enums.ResultCode;
 import org.ledgerark.common.exception.user.UserException;
 import org.ledgerark.system.entity.dto.SysUserLoginCommandDTO;
@@ -49,11 +50,20 @@ public class SysLoginServiceImpl implements SysLoginService {
                 .userTypeDisplayName(user.convertRoleType())
                 .statusDisplayName(user.getStatusName()).build();
 
+        // 构建Session
+        LoginUser loginUser = LoginUser.builder()
+                .username(user.getUserName())
+                .email(user.getEmail())
+                .nickname(user.getNickName())
+                .roleType(user.getRoleType())
+                .employeeId(user.getEmployeeId()).build();
+
         // 登录并生成token
         StpUtil.login(user.getId());
 
         // 将用户信息存储在Session中
-        StpUtil.getSession().set("userInfo", userInfo);
+        StpUtil.getSession().set(UserConstant.SESSION_USER_KEY, loginUser);
+
     }
 
     @Override

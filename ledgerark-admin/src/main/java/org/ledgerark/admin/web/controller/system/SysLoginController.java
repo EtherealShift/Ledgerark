@@ -1,4 +1,4 @@
-package org.ledgerark.admin.web.controller.common;
+package org.ledgerark.admin.web.controller.system;
 
 import jakarta.annotation.Resource;
 import lombok.extern.slf4j.Slf4j;
@@ -43,6 +43,17 @@ public class SysLoginController {
 
         log.info("注册成功{}", command.getUsername());
         return Result.success("注册成功");
+    }
+
+    /**
+     * 登出方法
+     * @return 结果
+     */
+    @PostMapping("/logout")
+    public Result<String> logout() {
+        loginService.logout();
+        log.info("登出成功");
+        return Result.success("登出成功");
     }
 
 }

@@ -2,7 +2,8 @@ package org.ledgerark.framework.util;
 
 
 import cn.dev33.satoken.stp.StpUtil;
-import org.ledgerark.system.entity.vo.SysUserLoginResponseVO;
+import org.ledgerark.common.constant.UserConstant;
+import org.ledgerark.common.entity.LoginUser;
 
 public class UserUtils {
 
@@ -11,8 +12,8 @@ public class UserUtils {
     /**
      * 获取当前登录用户
      */
-    public static SysUserLoginResponseVO getCurrentUser() {
-        return (SysUserLoginResponseVO) StpUtil.getSession().get("userInfo");
+    public static LoginUser getCurrentUser() {
+        return (LoginUser) StpUtil.getSession().get(UserConstant.SESSION_USER_KEY);
     }
 
 
@@ -42,6 +43,13 @@ public class UserUtils {
      */
     public static String getCurrentUserNickname() {
         return getCurrentUser().getNickname();
+    }
+
+    /**
+     * 获取当前用户角色
+     */
+    public static String getCurrentUserRoles() {
+        return getCurrentUser().getRoleType();
     }
 
 

@@ -15,4 +15,10 @@ public class UserConstant {
     public static final int PASSWORD_MAX_LENGTH = 20;
 
 
+    /**
+     * Session中用户信息的key
+     */
+    public static final String SESSION_USER_KEY = "loginUser";
+
+
 }
