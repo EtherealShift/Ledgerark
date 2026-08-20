@@ -1,5 +1,6 @@
 package org.ledgerark.system.service;
 
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import org.ledgerark.common.entity.sys.SysUser;
 import org.ledgerark.system.entity.dto.SysUserRegisterCommandDTO;
 
@@ -39,6 +40,14 @@ public interface ISysUserService {
     /**
      * 获取用户信息列表
      */
-    public List<SysUser> selectUserList();
+    List<SysUser> selectAllUserList();
+
+    /**
+     * 分页查询用户信息
+     * @param pageNum 页码，从 1 开始
+     * @param pageSize 每页条数
+     * @return 分页结果（含总条数、总页数）
+     */
+    Page<SysUser> pageUserList(Integer pageNum, Integer pageSize);
 
 }

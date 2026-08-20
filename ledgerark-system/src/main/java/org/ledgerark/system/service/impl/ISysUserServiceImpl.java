@@ -1,6 +1,7 @@
 package org.ledgerark.system.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import jakarta.annotation.Resource;
 import org.apache.commons.lang3.StringUtils;
 import org.ledgerark.system.entity.dto.SysUserRegisterCommandDTO;
@@ -90,8 +91,19 @@ public class ISysUserServiceImpl implements ISysUserService {
     }
 
     @Override
-    public List<SysUser> selectUserList() {
+    public List<SysUser> selectAllUserList() {
         return userMapper.selectList(null);
+    }
+
+    @Override
+    public Page<SysUser> pageUserList(Integer pageNum, Integer pageSize) {
+        // 参数兑底：页码/页大小为空或不合法时使用默认值，页大小限制最大 100，防止恶意大分页拖垮数据库
+        int current = (pageNum == null || pageNum < 1) ? 1 : pageNum;
+        int size = (pageSize == null || pageSize < 1) ? 10 : Math.min(pageSize, 100);
+
+        // 分页查询，按 ID 正序
+        Page<SysUser> page = new Page<>(current, size);
+        return userMapper.selectPage(page, null);
     }
 
 }

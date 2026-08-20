@@ -1,6 +1,7 @@
 package org.ledgerark.common.entity.sys;
 
 import com.baomidou.mybatisplus.annotation.TableName;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -32,7 +33,8 @@ public class SysUser extends BaseEntity {
     // 用户昵称
     private String nickName;
 
-    // 密码
+    // 密码（敏感字段，序列化时不返回前端）
+    @JsonIgnore
     private String password;
 
     // 用户邮箱
