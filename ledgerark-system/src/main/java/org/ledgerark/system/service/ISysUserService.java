@@ -1,6 +1,6 @@
 package org.ledgerark.system.service;
 
-import org.ledgerark.common.entity.SysUser;
+import org.ledgerark.common.entity.sys.SysUser;
 import org.ledgerark.system.entity.dto.SysUserRegisterCommandDTO;
 
 
@@ -22,5 +22,16 @@ public interface ISysUserService {
      */
     public void insertUserInfo(SysUserRegisterCommandDTO userInfo);
 
+
+    /**
+     * 校验邮箱信息
+     */
+    public boolean checkEmailUnique(String email);
+
+
+    /**
+     * 校验用户名信息
+     */
+    public boolean checkUsernameUnique(String username);
 
 }

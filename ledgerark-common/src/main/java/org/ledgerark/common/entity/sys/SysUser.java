@@ -1,10 +1,11 @@
-package org.ledgerark.common.entity;
+package org.ledgerark.common.entity.sys;
 
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+import org.ledgerark.common.entity.base.BaseEntity;
 import org.ledgerark.common.enums.CommonStatus;
 import org.ledgerark.common.enums.RoleCode;
 import org.ledgerark.common.enums.SexStatus;

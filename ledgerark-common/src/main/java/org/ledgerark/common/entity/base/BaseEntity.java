@@ -1,9 +1,6 @@
-package org.ledgerark.common.entity;
+package org.ledgerark.common.entity.base;
 
-import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.Getter;
-import lombok.Setter;
 
 import java.io.Serial;
 import java.io.Serializable;

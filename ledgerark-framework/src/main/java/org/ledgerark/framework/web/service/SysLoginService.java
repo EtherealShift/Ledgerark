@@ -18,4 +18,11 @@ public interface SysLoginService {
      */
     void register(SysUserRegisterCommandDTO command);
 
+
+    /**
+     * 注销
+     */
+    void logout();
+
+
 }

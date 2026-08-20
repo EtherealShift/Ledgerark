@@ -1,0 +1,49 @@
+package org.ledgerark.framework.util;
+
+
+import cn.dev33.satoken.stp.StpUtil;
+import org.ledgerark.system.entity.vo.SysUserLoginResponseVO;
+
+public class UserUtils {
+
+
+
+    /**
+     * 获取当前登录用户
+     */
+    public static SysUserLoginResponseVO getCurrentUser() {
+        return (SysUserLoginResponseVO) StpUtil.getSession().get("userInfo");
+    }
+
+
+    /**
+     * 获取当前用户名称
+     */
+    public static String getCurrentUserName() {
+        return getCurrentUser().getUsername();
+    }
+
+    /**
+     * 获取用户当前用户ID
+     */
+    public static Long getCurrentUserId() {
+        return StpUtil.getLoginIdAsLong();
+    }
+
+    /**
+     * 获取当前用户邮箱
+     */
+    public static String getCurrentUserEmail() {
+        return getCurrentUser().getEmail();
+    }
+
+    /**
+     * 获取当前用户昵称
+     */
+    public static String getCurrentUserNickname() {
+        return getCurrentUser().getNickname();
+    }
+
+
+
+}

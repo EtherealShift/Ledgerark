@@ -1,4 +1,4 @@
-package org.ledgerark.admin.web.controller;
+package org.ledgerark.admin.web.controller.common;
 
 import jakarta.annotation.Resource;
 import lombok.extern.slf4j.Slf4j;

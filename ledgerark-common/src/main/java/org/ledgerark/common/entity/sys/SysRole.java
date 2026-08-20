@@ -1,10 +1,11 @@
-package org.ledgerark.common.entity;
+package org.ledgerark.common.entity.sys;
 
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+import org.ledgerark.common.entity.base.BaseEntity;
 
 import java.io.Serial;
 

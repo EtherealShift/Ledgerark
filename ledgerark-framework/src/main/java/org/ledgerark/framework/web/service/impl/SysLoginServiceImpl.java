@@ -11,7 +11,7 @@ import org.ledgerark.system.entity.dto.SysUserRegisterCommandDTO;
 import org.ledgerark.system.entity.vo.SysUserLoginResponseVO;
 import org.ledgerark.system.service.ISysUserService;
 import org.ledgerark.common.constant.UserConstant;
-import org.ledgerark.common.entity.SysUser;
+import org.ledgerark.common.entity.sys.SysUser;
 import org.ledgerark.framework.web.service.SysLoginService;
 
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -60,7 +60,12 @@ public class SysLoginServiceImpl implements SysLoginService {
     public void register(SysUserRegisterCommandDTO command) {
 
         // 新增前校验
-
+        if (!sysUserService.checkEmailUnique(command.getEmail())) {
+            throw new UserException(ResultCode.USER_EMAIL_EXIST);
+        }
+        if  (!sysUserService.checkUsernameUnique(command.getUsername())) {
+            throw new UserException(ResultCode.USER_USERNAME_EXIST);
+        }
 
         // 密码加密
         String encode = passwordEncoder.encode(command.getPassword());
@@ -72,6 +77,17 @@ public class SysLoginServiceImpl implements SysLoginService {
 
     }
 
+    @Override
+    public void logout() {
+        try {
+            // 获取token
+            String token = StpUtil.getTokenValue();
+            log.info("退出登录");
+            StpUtil.logout(token);
+        } catch (Exception e) {
+            log.error("退出登录异常：{}", e.getMessage());
+        }
+    }
 
 
     /**

@@ -2,10 +2,11 @@ package org.ledgerark.system.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import jakarta.annotation.Resource;
+import org.apache.commons.lang3.StringUtils;
 import org.ledgerark.system.entity.dto.SysUserRegisterCommandDTO;
 import org.ledgerark.system.mapper.SysUserMapper;
 import org.ledgerark.system.service.ISysUserService;
-import org.ledgerark.common.entity.SysUser;
+import org.ledgerark.common.entity.sys.SysUser;
 import org.ledgerark.common.enums.ResultCode;
 import org.ledgerark.common.exception.user.UserException;
 import org.springframework.stereotype.Service;
@@ -54,6 +55,36 @@ public class ISysUserServiceImpl implements ISysUserService {
         // 插入用户数据
         userMapper.insert(user);
 
+    }
+
+    @Override
+    public boolean checkEmailUnique(String email) {
+
+        if (StringUtils.isBlank(email)) {
+            throw  new UserException(ResultCode.PARAM_MISSING);
+        }
+
+        // 查询邮箱信息
+        LambdaQueryWrapper<SysUser> queryWrapper = new LambdaQueryWrapper<>();
+        queryWrapper.eq(SysUser::getEmail, email);
+        String employeeId = userMapper.selectOne(queryWrapper).getEmployeeId();
+
+        return !StringUtils.isEmpty(employeeId);
+    }
+
+    @Override
+    public boolean checkUsernameUnique(String username) {
+
+        if (StringUtils.isBlank(username)) {
+            throw  new UserException(ResultCode.PARAM_MISSING);
+        }
+
+        // 查询信息
+        LambdaQueryWrapper<SysUser> queryWrapper = new LambdaQueryWrapper<>();
+        queryWrapper.eq(SysUser::getUserName, username);
+        String userName = userMapper.selectOne(queryWrapper).getUserName();
+
+        return  !StringUtils.isEmpty(userName);
     }
 
 }
