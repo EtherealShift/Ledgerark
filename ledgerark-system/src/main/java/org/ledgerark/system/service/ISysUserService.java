@@ -3,9 +3,11 @@ package org.ledgerark.system.service;
 import org.ledgerark.common.entity.sys.SysUser;
 import org.ledgerark.system.entity.dto.SysUserRegisterCommandDTO;
 
+import java.util.List;
+
 
 /**
- * 用户服务类
+ * 用户业务层
  */
 public interface ISysUserService {
 
@@ -33,5 +35,10 @@ public interface ISysUserService {
      * 校验用户名信息
      */
     public boolean checkUsernameUnique(String username);
+
+    /**
+     * 获取用户信息列表
+     */
+    public List<SysUser> selectUserList();
 
 }

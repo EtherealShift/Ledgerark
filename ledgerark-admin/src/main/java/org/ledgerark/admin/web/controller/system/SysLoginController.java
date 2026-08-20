@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @Slf4j
 @RestController
-@RequestMapping("/sys/user")
+@RequestMapping("/sys/login")
 public class SysLoginController {
 
     @Resource

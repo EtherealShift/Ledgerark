@@ -11,6 +11,8 @@ import org.ledgerark.common.enums.ResultCode;
 import org.ledgerark.common.exception.user.UserException;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 
 @Service
 public class ISysUserServiceImpl implements ISysUserService {
@@ -85,6 +87,11 @@ public class ISysUserServiceImpl implements ISysUserService {
         String userName = userMapper.selectOne(queryWrapper).getUserName();
 
         return  !StringUtils.isEmpty(userName);
+    }
+
+    @Override
+    public List<SysUser> selectUserList() {
+        return userMapper.selectList(null);
     }
 
 }
