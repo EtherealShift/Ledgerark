@@ -1,6 +1,7 @@
 package org.ledgerark.common.entity.sys;
 
 
+import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -13,6 +14,7 @@ import java.io.Serial;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+@TableName("sys_role")
 public class SysRole extends BaseEntity
 {
 

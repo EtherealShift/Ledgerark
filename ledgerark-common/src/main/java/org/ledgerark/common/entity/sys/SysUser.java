@@ -7,7 +7,7 @@ import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import org.ledgerark.common.entity.base.BaseEntity;
 import org.ledgerark.common.enums.CommonStatus;
-import org.ledgerark.common.enums.RoleCode;
+import org.ledgerark.common.enums.UserType;
 import org.ledgerark.common.enums.SexStatus;
 
 
@@ -50,8 +50,8 @@ public class SysUser extends BaseEntity {
     // 用户头像
     private String avatar;
 
-    // 用户角色
-    private String roleType;
+    // 用户类型 (1超级管理员 2普通用户)
+    private String userType;
 
 
     /**
@@ -62,10 +62,10 @@ public class SysUser extends BaseEntity {
     }
 
     /**
-     * 转换用户角色
+     * 转换用户类型
      */
-    public String convertRoleType() {
-        return RoleCode.fromCode(roleType).getName();
+    public String convertUserType() {
+        return UserType.fromCode(userType).getName();
     }
 
 

@@ -19,8 +19,8 @@ public class LoginUser {
     // 邮箱
     private String email;
 
-    // 角色类型
-    private String roleType;
+    // 用户类型
+    private String userType;
 
     // 工号
     private String employeeId;

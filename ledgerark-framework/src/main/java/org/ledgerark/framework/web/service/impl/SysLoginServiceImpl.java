@@ -47,7 +47,7 @@ public class SysLoginServiceImpl implements SysLoginService {
         SysUserLoginResponseVO userInfo = SysUserLoginResponseVO.builder()
                 .username(user.getUserName()).email(user.getEmail())
                 .nickname(user.getNickName()).genderDisplayName(user.getSexName())
-                .userTypeDisplayName(user.convertRoleType())
+                .userTypeDisplayName(user.convertUserType())
                 .statusDisplayName(user.getStatusName()).build();
 
         // 构建Session
@@ -55,7 +55,7 @@ public class SysLoginServiceImpl implements SysLoginService {
                 .username(user.getUserName())
                 .email(user.getEmail())
                 .nickname(user.getNickName())
-                .roleType(user.getRoleType())
+                .userType(user.getUserType())
                 .employeeId(user.getEmployeeId()).build();
 
         // 登录并生成token

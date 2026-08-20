@@ -46,10 +46,10 @@ public class UserUtils {
     }
 
     /**
-     * 获取当前用户角色
+     * 获取当前用户类型
      */
-    public static String getCurrentUserRoles() {
-        return getCurrentUser().getRoleType();
+    public static String getCurrentUserType() {
+        return getCurrentUser().getUserType();
     }
 
 
