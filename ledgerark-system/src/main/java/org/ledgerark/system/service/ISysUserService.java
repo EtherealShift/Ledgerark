@@ -4,6 +4,8 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import org.ledgerark.common.entity.base.PageQuery;
 import org.ledgerark.system.entity.sys.SysUser;
 import org.ledgerark.system.entity.dto.SysUserRegisterCommandDTO;
+import org.ledgerark.system.entity.vo.SysPageResponseVO;
+import org.ledgerark.system.entity.vo.SysUserResponseVO;
 
 import java.util.List;
 
@@ -41,13 +43,22 @@ public interface ISysUserService {
     /**
      * 获取用户信息列表
      */
-    List<SysUser> selectAllUserList();
+    List<SysUserResponseVO> selectAllUserList();
 
     /**
      * 分页查询用户信息
      * @param pageQuery 分页查询参数
      * @return 分页结果（含总条数、总页数）
      */
-    Page<SysUser> pageUserList(PageQuery pageQuery);
+    SysPageResponseVO pageUserList(PageQuery pageQuery);
+
+
+    /**
+     * 删除用户信息
+     */
+    public void deleteUserByUserId(Long userId);
+
+
+
 
 }

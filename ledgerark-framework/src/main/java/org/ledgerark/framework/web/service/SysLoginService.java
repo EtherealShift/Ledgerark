@@ -26,4 +26,10 @@ public interface SysLoginService {
     void logout();
 
 
+    /**
+     * 重置密码
+     */
+    void resetPassword(Long userId);
+
+
 }

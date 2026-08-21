@@ -31,6 +31,7 @@ public enum ResultCode {
     USER_INVALID("A0143", "用户已禁用, 请联系管理员"),
     USER_NOT_LOGIN("A0141", "用户未登录"),
     USER_LOGIN_EXPIRED("A0142", "用户登录过期"),
+    USER_DELETE_FAILED("A0144", "用户删除失败"),
 
 
     // ========== 权限相关 A022x ==========

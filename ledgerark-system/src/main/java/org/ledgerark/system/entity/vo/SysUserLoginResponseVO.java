@@ -21,6 +21,8 @@ public class SysUserLoginResponseVO {
     @Data
     @Builder
     public static class UserInfo {
+
+
         // 用户名
         private String username;
 

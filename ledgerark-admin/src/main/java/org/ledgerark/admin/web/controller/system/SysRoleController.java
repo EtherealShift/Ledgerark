@@ -7,6 +7,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.ledgerark.common.entity.Result;
 import org.ledgerark.common.entity.base.PageQuery;
 import org.ledgerark.system.entity.sys.SysRole;
+import org.ledgerark.system.entity.vo.SysPageResponseVO;
 import org.ledgerark.system.service.ISysRoleService;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -38,7 +39,7 @@ public class SysRoleController {
      * @return 分页结果（含总条数、总页数、当前页数据）
      */
     @GetMapping("/page")
-    public Result<Page<SysRole>> pageRoleList(PageQuery pageQuery) {
+    public Result<SysPageResponseVO> pageRoleList(PageQuery pageQuery) {
         return Result.success(sysRoleService.pageRoleList(pageQuery));
     }
 

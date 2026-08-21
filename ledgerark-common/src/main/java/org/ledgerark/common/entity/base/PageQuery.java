@@ -10,11 +10,6 @@ import lombok.Data;
 @Data
 public class PageQuery {
 
-    /**
-     * 单页最大条数，防止恶意大分页拖垮数据库
-     */
-    public static final int MAX_PAGE_SIZE = 100;
-
     // 页码，从 1 开始
     private Integer pageNum;
 

@@ -7,10 +7,10 @@ import lombok.extern.slf4j.Slf4j;
 import org.ledgerark.common.entity.Result;
 import org.ledgerark.common.entity.base.PageQuery;
 import org.ledgerark.system.entity.sys.SysUser;
+import org.ledgerark.system.entity.vo.SysPageResponseVO;
+import org.ledgerark.system.entity.vo.SysUserResponseVO;
 import org.ledgerark.system.service.ISysUserService;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -28,7 +28,7 @@ public class SysUserController {
      * @return 用户列表
      */
     @GetMapping("/list")
-    public Result<List<SysUser>> selectUserList() {
+    public Result<List<SysUserResponseVO>> selectUserList() {
         return Result.success(sysUserService.selectAllUserList());
     }
 
@@ -38,8 +38,19 @@ public class SysUserController {
      * @return 分页结果（含总条数、总页数、当前页数据）
      */
     @GetMapping("/page")
-    public Result<Page<SysUser>> pageUserList(PageQuery pageQuery) {
+    public Result<SysPageResponseVO> pageUserList(PageQuery pageQuery) {
         return Result.success(sysUserService.pageUserList(pageQuery));
+    }
+
+    /**
+     * 根据用户 ID 删除用户
+     * @param userId 用户 ID
+     * @return 删除结果
+     */
+    @PostMapping("/delete")
+    public Result<?> deleteUserByUserId(Long userId) {
+        sysUserService.deleteUserByUserId(userId);
+        return Result.success("用户删除成功");
     }
 
 }

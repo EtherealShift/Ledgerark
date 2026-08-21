@@ -106,6 +106,11 @@ public class SysLoginServiceImpl implements SysLoginService {
         }
     }
 
+    @Override
+    public void resetPassword(Long userId) {
+
+    }
+
 
     /**
      * 登陆前校验

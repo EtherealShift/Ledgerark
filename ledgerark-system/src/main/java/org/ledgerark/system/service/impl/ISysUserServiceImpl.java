@@ -4,8 +4,11 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import jakarta.annotation.Resource;
 import org.apache.commons.lang3.StringUtils;
+import org.ledgerark.common.entity.PageParam;
 import org.ledgerark.common.entity.base.PageQuery;
 import org.ledgerark.system.entity.dto.SysUserRegisterCommandDTO;
+import org.ledgerark.system.entity.vo.SysPageResponseVO;
+import org.ledgerark.system.entity.vo.SysUserResponseVO;
 import org.ledgerark.system.mapper.SysUserMapper;
 import org.ledgerark.system.service.ISysUserService;
 import org.ledgerark.system.entity.sys.SysUser;
@@ -14,8 +17,10 @@ import org.ledgerark.common.enums.ResultCode;
 import org.ledgerark.system.enums.UserType;
 import org.ledgerark.system.exception.UserException;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 
 @Service
@@ -98,21 +103,45 @@ public class ISysUserServiceImpl implements ISysUserService {
     }
 
     @Override
-    public List<SysUser> selectAllUserList() {
-        return userMapper.selectList(null);
+    public List<SysUserResponseVO> selectAllUserList() {
+
+        return userMapper.selectList(null).stream().map(vo -> new SysUserResponseVO(
+                vo.getEmployeeId(), vo.getUserName(), vo.getNickName(), vo.getEmail(), vo.getPhoneNumber(),
+                vo.getSexName(), vo.getStatusName(), vo.getAvatar(), vo.convertUserType()
+        )).toList();
     }
 
     @Override
-    public Page<SysUser> pageUserList(PageQuery pageQuery) {
-        // 参数兑底：页码/页大小为空或不合法时使用默认值，页大小限制最大 100，防止恶意大分页拖垮数据库
-        Integer pageNum = pageQuery.getPageNum();
-        Integer pageSize = pageQuery.getPageSize();
-        int current = (pageNum == null || pageNum < 1) ? 1 : pageNum;
-        int size = (pageSize == null || pageSize < 1) ? 10 : Math.min(pageSize, PageQuery.MAX_PAGE_SIZE);
+    public SysPageResponseVO pageUserList(PageQuery pageQuery) {
+
 
         // 分页查询，按 ID 正序
-        Page<SysUser> page = new Page<>(current, size);
-        return userMapper.selectPage(page, null);
+        Page<SysUser> page = PageParam.of(pageQuery).toPage();
+        Page<SysUser> sysUserPage = userMapper.selectPage(page, null);
+
+        return SysPageResponseVO.builder()
+                .records(sysUserPage.getRecords())
+                .total(sysUserPage.getTotal())
+                .size(sysUserPage.getSize())
+                .current(sysUserPage.getCurrent()).build();
     }
+
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public void deleteUserByUserId(Long userId) {
+        try {
+            // 校验参数
+            if (userId == null || userId < 1) {
+                throw  new UserException(ResultCode.PARAM_MISSING);
+            }
+            // 删除用户信息，软删除
+            userMapper.deleteById(userId);
+        } catch (Exception e) {
+            throw new UserException(ResultCode.USER_DELETE_FAILED);
+        }
+    }
+
+
+
 
 }
