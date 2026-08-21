@@ -70,10 +70,10 @@ public class SysLoginServiceImpl implements SysLoginService {
     public void register(SysUserRegisterCommandDTO command) {
 
         // 新增前校验
-        if (!sysUserService.checkEmailUnique(command.getEmail())) {
+        if (sysUserService.checkEmailUnique(command.getEmail())) {
             throw new UserException(ResultCode.USER_EMAIL_EXIST);
         }
-        if  (!sysUserService.checkUsernameUnique(command.getUsername())) {
+        if  (sysUserService.checkUsernameUnique(command.getUsername())) {
             throw new UserException(ResultCode.USER_USERNAME_EXIST);
         }
 

@@ -1,6 +1,7 @@
 package org.ledgerark.common.entity.sys;
 
 
+import com.baomidou.mybatisplus.annotation.TableLogic;
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -30,11 +31,15 @@ public class SysRole extends BaseEntity
     // 角色权限
     private String roleKey;
 
+    // 删除标志
+    // 逻辑删除：0-正常 1-已删除
+    @TableLogic
+    private Integer delFlag;
+
     // 数据权限范围
     private String dataScope;
 
     // 角色状态 (0正常 1停用)
     private String status;
-
 
 }

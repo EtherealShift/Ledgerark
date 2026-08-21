@@ -9,7 +9,9 @@ import org.ledgerark.system.entity.dto.SysUserRegisterCommandDTO;
 import org.ledgerark.system.mapper.SysUserMapper;
 import org.ledgerark.system.service.ISysUserService;
 import org.ledgerark.common.entity.sys.SysUser;
+import org.ledgerark.common.enums.CommonStatus;
 import org.ledgerark.common.enums.ResultCode;
+import org.ledgerark.common.enums.UserType;
 import org.ledgerark.common.exception.user.UserException;
 import org.springframework.stereotype.Service;
 
@@ -56,6 +58,10 @@ public class ISysUserServiceImpl implements ISysUserService {
         user.setSex(userInfo.getSex());
         user.setPassword(userInfo.getPassword());
 
+        // 设置默认状态与用户类型（工号保持为空，由管理员分配）
+        user.setStatus(CommonStatus.NORMAL.getCode());
+        user.setUserType(UserType.COMMON.getCode());
+
         // 插入用户数据
         userMapper.insert(user);
 
@@ -71,9 +77,9 @@ public class ISysUserServiceImpl implements ISysUserService {
         // 查询邮箱信息
         LambdaQueryWrapper<SysUser> queryWrapper = new LambdaQueryWrapper<>();
         queryWrapper.eq(SysUser::getEmail, email);
-        String employeeId = userMapper.selectOne(queryWrapper).getEmployeeId();
 
-        return !StringUtils.isEmpty(employeeId);
+        // 判断邮箱是否唯一
+        return !userMapper.exists(queryWrapper);
     }
 
     @Override
@@ -86,9 +92,9 @@ public class ISysUserServiceImpl implements ISysUserService {
         // 查询信息
         LambdaQueryWrapper<SysUser> queryWrapper = new LambdaQueryWrapper<>();
         queryWrapper.eq(SysUser::getUserName, username);
-        String userName = userMapper.selectOne(queryWrapper).getUserName();
 
-        return  !StringUtils.isEmpty(userName);
+        // 判断用户名是否唯一
+        return !userMapper.exists(queryWrapper);
     }
 
     @Override

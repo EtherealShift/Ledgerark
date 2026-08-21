@@ -14,6 +14,10 @@ spring:
 mybatis-plus:
   global-config:
     banner: false
+    db-config:
+      logic-delete-field: delFlag
+      logic-delete-value: 1
+      logic-not-delete-value: 0
 
 ## JWT配置
 #jwt:

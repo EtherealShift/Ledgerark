@@ -1,21 +1,23 @@
 -- =============================================
--- sys_user_role 表结构调整脚本（表已存在，执行以下 ALTER 修改）
+-- sys_role 角色表（完整建表脚本）
 -- 数据库：ledgerark
--- 说明：不使用外键约束，数据完整性由代码逻辑保证
---       （删除用户/角色时，需在代码中同步清理关联数据）
+-- 说明：字段与 SysRole 实体 + BaseEntity 对齐（逻辑删除字段 del_flag，仅需要的表才建）
+-- 若本地表已存在：先核对 SHOW CREATE TABLE sys_role; 或 DROP 后执行；
+-- 已存在且缺 del_flag 列时执行：
+--   ALTER TABLE sys_role ADD COLUMN del_flag TINYINT NOT NULL DEFAULT 0 COMMENT '删除标志 0正常 1已删除';
 -- =============================================
-
--- 1. 删除原复合主键 (user_id, role_id)
-ALTER TABLE `sys_user_role` DROP PRIMARY KEY;
-
--- 2. 新增自增主键 id、update_time 列，并重建唯一索引防止重复授权
-ALTER TABLE `sys_user_role`
-  ADD COLUMN `id` BIGINT NOT NULL AUTO_INCREMENT COMMENT '主键 ID' FIRST,
-  ADD PRIMARY KEY (`id`) USING BTREE,
-  ADD COLUMN `update_time` DATETIME DEFAULT NULL COMMENT '更新时间' AFTER `role_id`,
-  ADD UNIQUE KEY `uk_user_role` (`user_id`, `role_id`) USING BTREE;
-
--- =============================================
--- 以下语句仅在尚未执行过时运行（若 sys_user.role_type 已改名可跳过）
--- =============================================
--- ALTER TABLE `sys_user` CHANGE COLUMN `role_type` `user_type` CHAR(1) DEFAULT '2' COMMENT '用户类型 (1-超级管理员 2-普通用户)';
+CREATE TABLE sys_role (
+    id          BIGINT       NOT NULL AUTO_INCREMENT COMMENT '主键',
+    role_code   BIGINT       NULL     COMMENT '角色编码',
+    role_name   VARCHAR(50)  NOT NULL COMMENT '角色名称',
+    role_key    VARCHAR(100) NULL     COMMENT '角色权限字符串',
+    data_scope  CHAR(1)      NOT NULL DEFAULT '1' COMMENT '数据权限范围',
+    status      CHAR(1)      NOT NULL DEFAULT '0' COMMENT '状态 0正常 1停用',
+    create_by   VARCHAR(64)  NULL     COMMENT '创建者',
+    update_by   VARCHAR(64)  NULL     COMMENT '更新者',
+    create_time DATETIME     NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+    update_time DATETIME     NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+    remark      VARCHAR(500) NULL     COMMENT '备注',
+    del_flag    TINYINT      NOT NULL DEFAULT 0 COMMENT '删除标志 0正常 1已删除',
+    PRIMARY KEY (id)
+) ENGINE = InnoDB DEFAULT CHARSET = utf8mb4 COLLATE = utf8mb4_unicode_ci COMMENT = '角色表';

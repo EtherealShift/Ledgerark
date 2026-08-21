@@ -2,6 +2,9 @@ package org.ledgerark.framework.web.exception;
 
 import org.ledgerark.common.entity.Result;
 import org.ledgerark.common.enums.ResultCode;
+import cn.dev33.satoken.exception.NotLoginException;
+import cn.dev33.satoken.exception.NotPermissionException;
+import cn.dev33.satoken.exception.NotRoleException;
 import org.ledgerark.common.exception.user.UserException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -34,6 +37,51 @@ public class GlobalExceptionHandler
     @ExceptionHandler(UserException.class)
     public Result<?> handlerUserException(UserException e) {
         return Result.failure(e.getCode(), e.getMessage(), null);
+    }
+
+    /**
+     * 未登录 / token 无效
+     */
+    @ExceptionHandler(NotLoginException.class)
+    public Result<?> handlerNotLoginException(NotLoginException e) {
+        log.warn("未登录访问: {}", e.getMessage());
+        return Result.failure(ResultCode.USER_NOT_LOGIN);
+    }
+
+    /**
+     * 无操作权限
+     */
+    @ExceptionHandler(NotPermissionException.class)
+    public Result<?> handlerNotPermissionException(NotPermissionException e) {
+        log.warn("权限不足: {}", e.getMessage());
+        return Result.failure(ResultCode.USER_PERMISSION_DENIED);
+    }
+
+    /**
+     * 无角色
+     */
+    @ExceptionHandler(NotRoleException.class)
+    public Result<?> handlerNotRoleException(NotRoleException e) {
+        log.warn("角色无效: {}", e.getMessage());
+        return Result.failure(ResultCode.USER_ROLE_INVALID);
+    }
+
+    /**
+     * 运行时异常兜底
+     */
+    @ExceptionHandler(RuntimeException.class)
+    public Result<?> handlerRuntimeException(RuntimeException e) {
+        log.error("系统运行时异常", e);
+        return Result.failure(ResultCode.SYSTEM_ERROR);
+    }
+
+    /**
+     * 未知异常兜底
+     */
+    @ExceptionHandler(Exception.class)
+    public Result<?> handlerException(Exception e) {
+        log.error("系统未知异常", e);
+        return Result.failure(ResultCode.SYSTEM_ERROR);
     }
 
 //    /**

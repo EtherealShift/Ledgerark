@@ -13,7 +13,7 @@ public class SysUserLoginCommandDTO {
     private String username;
 
     @NotBlank(message = "密码不能为空")
-    @Size(max = 50, min = 6, message = "密码长度必须介于 6 ~ 50 个字符之间")
+    @Size(min = 6, max = 20, message = "密码长度必须介于 6 ~ 20 个字符之间")
     private String password;
 
 }

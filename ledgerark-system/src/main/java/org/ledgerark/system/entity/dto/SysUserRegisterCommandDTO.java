@@ -32,7 +32,7 @@ public class SysUserRegisterCommandDTO {
 
     // 密码
     @NotBlank(message = "密码不能为空")
-    @Size(min = 6, message = "密码长度不能少于6位")
+    @Size(min = 6, max = 20, message = "密码长度必须在6到20个字符之间")
     private String password;
 
 }

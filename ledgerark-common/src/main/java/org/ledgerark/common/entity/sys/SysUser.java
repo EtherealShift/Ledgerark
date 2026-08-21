@@ -1,5 +1,6 @@
 package org.ledgerark.common.entity.sys;
 
+import com.baomidou.mybatisplus.annotation.TableLogic;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
@@ -48,6 +49,11 @@ public class SysUser extends BaseEntity {
 
     // 账号状态 (0正常 1停用)
     private String status;
+
+    // 删除标志
+    // 逻辑删除：0-正常 1-已删除
+    @TableLogic
+    private Integer delFlag;
 
     // 用户头像
     private String avatar;
