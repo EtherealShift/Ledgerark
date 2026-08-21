@@ -3,7 +3,7 @@ package org.ledgerark.system.service.impl;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import jakarta.annotation.Resource;
 import org.ledgerark.common.entity.base.PageQuery;
-import org.ledgerark.common.entity.sys.SysRole;
+import org.ledgerark.system.entity.sys.SysRole;
 import org.ledgerark.system.mapper.SysRoleMapper;
 import org.ledgerark.system.service.ISysRoleService;
 import org.springframework.stereotype.Service;

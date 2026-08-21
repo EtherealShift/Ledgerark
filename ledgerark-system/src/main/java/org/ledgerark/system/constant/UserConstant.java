@@ -1,4 +1,4 @@
-package org.ledgerark.common.constant;
+package org.ledgerark.system.constant;
 
 public class UserConstant {
 

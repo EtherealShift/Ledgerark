@@ -1,4 +1,4 @@
-package org.ledgerark.common.enums;
+package org.ledgerark.system.enums;
 
 
 import lombok.AllArgsConstructor;

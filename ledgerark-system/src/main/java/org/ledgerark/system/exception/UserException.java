@@ -1,4 +1,4 @@
-package org.ledgerark.common.exception.user;
+package org.ledgerark.system.exception;
 
 import org.ledgerark.common.enums.ResultCode;
 import org.ledgerark.common.exception.base.BaseException;

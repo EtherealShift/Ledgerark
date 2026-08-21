@@ -5,7 +5,7 @@ import org.ledgerark.common.enums.ResultCode;
 import cn.dev33.satoken.exception.NotLoginException;
 import cn.dev33.satoken.exception.NotPermissionException;
 import cn.dev33.satoken.exception.NotRoleException;
-import org.ledgerark.common.exception.user.UserException;
+import org.ledgerark.system.exception.UserException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.validation.FieldError;

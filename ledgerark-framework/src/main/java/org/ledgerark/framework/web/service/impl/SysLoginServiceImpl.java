@@ -6,17 +6,18 @@ import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.ledgerark.common.entity.LoginUser;
 import org.ledgerark.common.enums.ResultCode;
-import org.ledgerark.common.exception.user.UserException;
+import org.ledgerark.system.exception.UserException;
 import org.ledgerark.system.entity.dto.SysUserLoginCommandDTO;
 import org.ledgerark.system.entity.dto.SysUserRegisterCommandDTO;
 import org.ledgerark.system.entity.vo.SysUserLoginResponseVO;
 import org.ledgerark.system.service.ISysUserService;
-import org.ledgerark.common.constant.UserConstant;
-import org.ledgerark.common.entity.sys.SysUser;
+import org.ledgerark.system.constant.UserConstant;
+import org.ledgerark.system.entity.sys.SysUser;
 import org.ledgerark.framework.web.service.SysLoginService;
 
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 
 @Slf4j
@@ -72,6 +73,7 @@ public class SysLoginServiceImpl implements SysLoginService {
     }
 
     @Override
+    @Transactional(rollbackFor = Exception.class)
     public void register(SysUserRegisterCommandDTO command) {
 
         // 新增前校验

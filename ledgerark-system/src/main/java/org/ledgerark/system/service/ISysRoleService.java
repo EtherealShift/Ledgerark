@@ -2,7 +2,7 @@ package org.ledgerark.system.service;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import org.ledgerark.common.entity.base.PageQuery;
-import org.ledgerark.common.entity.sys.SysRole;
+import org.ledgerark.system.entity.sys.SysRole;
 
 import java.util.List;
 

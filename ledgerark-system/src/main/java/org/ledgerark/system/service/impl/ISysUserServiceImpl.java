@@ -8,11 +8,11 @@ import org.ledgerark.common.entity.base.PageQuery;
 import org.ledgerark.system.entity.dto.SysUserRegisterCommandDTO;
 import org.ledgerark.system.mapper.SysUserMapper;
 import org.ledgerark.system.service.ISysUserService;
-import org.ledgerark.common.entity.sys.SysUser;
-import org.ledgerark.common.enums.CommonStatus;
+import org.ledgerark.system.entity.sys.SysUser;
+import org.ledgerark.system.enums.CommonStatus;
 import org.ledgerark.common.enums.ResultCode;
-import org.ledgerark.common.enums.UserType;
-import org.ledgerark.common.exception.user.UserException;
+import org.ledgerark.system.enums.UserType;
+import org.ledgerark.system.exception.UserException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

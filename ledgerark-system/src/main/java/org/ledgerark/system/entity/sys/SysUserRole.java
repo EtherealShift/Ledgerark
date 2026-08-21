@@ -1,4 +1,4 @@
-package org.ledgerark.common.entity.sys;
+package org.ledgerark.system.entity.sys;
 
 
 import com.baomidou.mybatisplus.annotation.IdType;

@@ -6,7 +6,7 @@ import jakarta.annotation.Resource;
 import lombok.extern.slf4j.Slf4j;
 import org.ledgerark.common.entity.Result;
 import org.ledgerark.common.entity.base.PageQuery;
-import org.ledgerark.common.entity.sys.SysUser;
+import org.ledgerark.system.entity.sys.SysUser;
 import org.ledgerark.system.service.ISysUserService;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;

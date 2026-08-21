@@ -2,7 +2,7 @@ package org.ledgerark.framework.util;
 
 
 import cn.dev33.satoken.stp.StpUtil;
-import org.ledgerark.common.constant.UserConstant;
+import org.ledgerark.system.constant.UserConstant;
 import org.ledgerark.common.entity.LoginUser;
 
 public class UserUtils {
