@@ -31,7 +31,7 @@ public class SysLoginServiceImpl implements SysLoginService {
 
 
     @Override
-    public void login(SysUserLoginCommandDTO command) {
+    public SysUserLoginResponseVO login(SysUserLoginCommandDTO command) {
 
         // 登陆前校验
         loginPreCheck(command.getUsername(), command.getPassword());
@@ -43,27 +43,32 @@ public class SysLoginServiceImpl implements SysLoginService {
             throw new UserException(ResultCode.USER_PASSWORD_ERROR);
         }
 
-        // 构建用户信息
-        SysUserLoginResponseVO userInfo = SysUserLoginResponseVO.builder()
+        // 登录并生成 token（先登录，token 才可获取）
+        StpUtil.login(user.getId());
+        String tokenValue = StpUtil.getTokenInfo().getTokenValue();
+
+        // 构建用户详情
+        SysUserLoginResponseVO.UserInfo userInfo = SysUserLoginResponseVO.UserInfo.builder()
                 .username(user.getUserName()).email(user.getEmail())
                 .nickname(user.getNickName()).genderDisplayName(user.getSexName())
                 .userTypeDisplayName(user.convertUserType())
                 .statusDisplayName(user.getStatusName()).build();
 
-        // 构建Session
+        // 构建 Session
         LoginUser loginUser = LoginUser.builder()
                 .username(user.getUserName())
                 .email(user.getEmail())
                 .nickname(user.getNickName())
                 .userType(user.getUserType())
                 .employeeId(user.getEmployeeId()).build();
-
-        // 登录并生成token
-        StpUtil.login(user.getId());
-
-        // 将用户信息存储在Session中
         StpUtil.getSession().set(UserConstant.SESSION_USER_KEY, loginUser);
 
+        // 组装登录响应：token + 用户名 + 用户详情
+        return SysUserLoginResponseVO.builder()
+                .token(tokenValue)
+                .username(user.getUserName())
+                .userInfo(userInfo)
+                .build();
     }
 
     @Override

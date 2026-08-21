@@ -6,6 +6,7 @@ import org.ledgerark.common.entity.Result;
 import org.ledgerark.framework.web.service.SysLoginService;
 import org.ledgerark.system.entity.dto.SysUserLoginCommandDTO;
 import org.ledgerark.system.entity.dto.SysUserRegisterCommandDTO;
+import org.ledgerark.system.entity.vo.SysUserLoginResponseVO;
 import org.springframework.web.bind.annotation.*;
 
 
@@ -23,11 +24,11 @@ public class SysLoginController {
      * @return 结果
      */
     @PostMapping("/doLogin")
-    public Result<String> login(@RequestBody SysUserLoginCommandDTO command) {
-        // 调用服务层登录方法
-        loginService.login(command);
+    public Result<SysUserLoginResponseVO> login(@RequestBody SysUserLoginCommandDTO command) {
+        // 调用服务层登录方法，返回含 token 的响应
+        SysUserLoginResponseVO response = loginService.login(command);
         log.info("登录成功{}", command.getUsername());
-        return Result.success("登录成功");
+        return Result.success(response);
     }
 
     /**
