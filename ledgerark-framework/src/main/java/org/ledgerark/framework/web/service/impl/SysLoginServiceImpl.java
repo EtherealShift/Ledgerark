@@ -76,11 +76,11 @@ public class SysLoginServiceImpl implements SysLoginService {
     @Transactional(rollbackFor = Exception.class)
     public void register(SysUserRegisterCommandDTO command) {
 
-        // 新增前校验
-        if (sysUserService.checkEmailUnique(command.getEmail())) {
+        // 新增前校验（checkXxxUnique 返回 true 表示"未被占用"，故取反后抛"已存在"）
+        if (!sysUserService.checkEmailUnique(command.getEmail())) {
             throw new UserException(ResultCode.USER_EMAIL_EXIST);
         }
-        if  (sysUserService.checkUsernameUnique(command.getUsername())) {
+        if (!sysUserService.checkUsernameUnique(command.getUsername())) {
             throw new UserException(ResultCode.USER_USERNAME_EXIST);
         }
 
