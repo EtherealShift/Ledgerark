@@ -32,4 +32,5 @@ public interface SysLoginService {
     void resetPassword(Long userId);
 
 
+    void changePassword(Long userId, String oldPassword, String newPassword);
 }

@@ -8,9 +8,9 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import org.ledgerark.common.entity.base.BaseEntity;
-import org.ledgerark.system.enums.CommonStatus;
-import org.ledgerark.system.enums.UserType;
-import org.ledgerark.system.enums.SexStatus;
+import org.ledgerark.common.enums.CommonStatus;
+import org.ledgerark.common.enums.UserType;
+import org.ledgerark.common.enums.SexStatus;
 
 
 import java.io.Serial;

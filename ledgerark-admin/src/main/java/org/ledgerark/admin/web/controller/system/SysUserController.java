@@ -53,4 +53,17 @@ public class SysUserController {
         return Result.success("用户删除成功");
     }
 
+
+    /**
+     * 根据用户 ID 更新用户密码
+     * @param userId 用户 ID
+      * @param newPassword 新密码
+     * @return 更新结果
+     */
+    @PostMapping("/updatePassword")
+    public Result<?> updateUserPasswordById(Long userId, String newPassword) {
+        sysUserService.updateUserPasswordById(userId, newPassword);
+        return Result.success("用户密码更新成功");
+    }
+
 }

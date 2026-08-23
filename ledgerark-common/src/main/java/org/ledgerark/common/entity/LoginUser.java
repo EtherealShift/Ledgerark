@@ -5,10 +5,13 @@ import lombok.Builder;
 import lombok.Data;
 
 
-
 @Data
 @Builder
 public class LoginUser {
+
+
+    // 用户ID
+    private Long userId;
 
     // 用户名
     private String username;

@@ -9,6 +9,9 @@ import lombok.AllArgsConstructor;
 @AllArgsConstructor
 public class SysUserResponseVO {
 
+    // 用户ID
+    private Long userId;
+
     // 工号
     private String employeeId;
 

@@ -32,6 +32,8 @@ public enum ResultCode {
     USER_NOT_LOGIN("A0141", "用户未登录"),
     USER_LOGIN_EXPIRED("A0142", "用户登录过期"),
     USER_DELETE_FAILED("A0144", "用户删除失败"),
+    USER_NOT_ADMIN("A0145", "非管理员用户，无法执行此操作"),
+    USER_PASSWORD_UPDATE_FAILED("A0121", "用户密码更新失败"),
 
 
     // ========== 权限相关 A022x ==========
@@ -61,7 +63,12 @@ public enum ResultCode {
     BUSINESS_ERROR("B0002", "业务处理失败"),
     USERNAME_OR_PASSWORD_EMPTY("B0003", "用户名或密码为空"),
     USERNAME_LENGTH_ERROR("B0004", "用户名长度错误"),
-    PASSWORD_LENGTH_ERROR("B0005", "密码长度错误");
+    PASSWORD_LENGTH_ERROR("B0005", "密码长度错误"),
+    USER_RESET_PASSWORD_FAIL("B0006", "用户密码重置失败"),
+    USER_CHANGE_PASSWORD_FAIL("B0007", "用户密码修改失败"),
+    USER_REGISTER_FAIL("B0008", "用户注册失败"),
+    USER_LOGIN_FAIL("B0009", "用户登录失败"),
+    NOT_CURRENT_USER("B0010", "不是当前用户");
 
 
 

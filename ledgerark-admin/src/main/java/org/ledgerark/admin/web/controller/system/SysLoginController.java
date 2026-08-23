@@ -4,6 +4,7 @@ import jakarta.annotation.Resource;
 import lombok.extern.slf4j.Slf4j;
 import org.ledgerark.common.entity.Result;
 import org.ledgerark.framework.web.service.SysLoginService;
+import org.ledgerark.system.entity.dto.SysUserChangePasswordDTO;
 import org.ledgerark.system.entity.dto.SysUserLoginCommandDTO;
 import org.ledgerark.system.entity.dto.SysUserRegisterCommandDTO;
 import org.ledgerark.system.entity.vo.SysUserLoginResponseVO;
@@ -53,5 +54,29 @@ public class SysLoginController {
         log.info("登出成功");
         return Result.success("登出成功");
     }
+
+
+    /**
+     * 重置密码方法
+     * @param userId 用户ID
+     * @return 结果
+     */
+    @PostMapping("/resetPassword")
+    public Result<String> resetPassword(@RequestParam Long userId) {
+        loginService.resetPassword(userId);
+        log.info("重置密码成功{}", userId);
+        return Result.success("重置密码成功");
+    }
+
+    /**
+     * 修改密码方法
+     */
+    @PostMapping("/changePassword")
+    public Result<String> changePassword(@RequestBody SysUserChangePasswordDTO command) {
+        loginService.changePassword(command.getUserId(), command.getOldPassword(), command.getNewPassword());
+        log.info("修改密码成功");
+        return Result.success("修改密码成功");
+    }
+
 
 }

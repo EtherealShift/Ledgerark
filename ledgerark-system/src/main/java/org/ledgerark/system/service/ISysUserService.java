@@ -59,6 +59,12 @@ public interface ISysUserService {
     public void deleteUserByUserId(Long userId);
 
 
+    /**
+     * 根据用户ID修改密码
+     */
+    public void updateUserPasswordById(Long userId, String newPassword);
+
+
 
 
 }

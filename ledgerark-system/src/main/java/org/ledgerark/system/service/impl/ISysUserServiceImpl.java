@@ -1,8 +1,10 @@
 package org.ledgerark.system.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import jakarta.annotation.Resource;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.ledgerark.common.entity.PageParam;
 import org.ledgerark.common.entity.base.PageQuery;
@@ -12,17 +14,17 @@ import org.ledgerark.system.entity.vo.SysUserResponseVO;
 import org.ledgerark.system.mapper.SysUserMapper;
 import org.ledgerark.system.service.ISysUserService;
 import org.ledgerark.system.entity.sys.SysUser;
-import org.ledgerark.system.enums.CommonStatus;
+import org.ledgerark.common.enums.CommonStatus;
 import org.ledgerark.common.enums.ResultCode;
-import org.ledgerark.system.enums.UserType;
+import org.ledgerark.common.enums.UserType;
 import org.ledgerark.system.exception.UserException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 
+@Slf4j
 @Service
 public class ISysUserServiceImpl implements ISysUserService {
 
@@ -39,7 +41,7 @@ public class ISysUserServiceImpl implements ISysUserService {
                 .eq(SysUser::getEmail, userName);
         SysUser user = userMapper.selectOne(queryWrapper);
 
-        if (user == null){
+        if (user == null) {
             throw new UserException(ResultCode.USER_NOT_FOUND);
         }
 
@@ -76,7 +78,7 @@ public class ISysUserServiceImpl implements ISysUserService {
     public boolean checkEmailUnique(String email) {
 
         if (StringUtils.isBlank(email)) {
-            throw  new UserException(ResultCode.PARAM_MISSING);
+            throw new UserException(ResultCode.PARAM_MISSING);
         }
 
         // 查询邮箱信息
@@ -91,7 +93,7 @@ public class ISysUserServiceImpl implements ISysUserService {
     public boolean checkUsernameUnique(String username) {
 
         if (StringUtils.isBlank(username)) {
-            throw  new UserException(ResultCode.PARAM_MISSING);
+            throw new UserException(ResultCode.PARAM_MISSING);
         }
 
         // 查询信息
@@ -106,7 +108,8 @@ public class ISysUserServiceImpl implements ISysUserService {
     public List<SysUserResponseVO> selectAllUserList() {
 
         return userMapper.selectList(null).stream().map(vo -> new SysUserResponseVO(
-                vo.getEmployeeId(), vo.getUserName(), vo.getNickName(), vo.getEmail(), vo.getPhoneNumber(),
+                vo.getId(), vo.getEmployeeId(), vo.getUserName(),
+                vo.getNickName(), vo.getEmail(), vo.getPhoneNumber(),
                 vo.getSexName(), vo.getStatusName(), vo.getAvatar(), vo.convertUserType()
         )).toList();
     }
@@ -132,7 +135,7 @@ public class ISysUserServiceImpl implements ISysUserService {
         try {
             // 校验参数
             if (userId == null || userId < 1) {
-                throw  new UserException(ResultCode.PARAM_MISSING);
+                throw new UserException(ResultCode.PARAM_MISSING);
             }
             // 删除用户信息，软删除
             userMapper.deleteById(userId);
@@ -141,7 +144,29 @@ public class ISysUserServiceImpl implements ISysUserService {
         }
     }
 
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public void updateUserPasswordById(Long userId, String newPassword) {
+        try {
+            // 校验参数
+            if (userId == null || userId < 1 || StringUtils.isBlank(newPassword)) {
+                throw new UserException(ResultCode.PARAM_MISSING);
+            }
 
+            // 更新用户密码
+            LambdaUpdateWrapper<SysUser> updateWrapper = new LambdaUpdateWrapper<>();
+            updateWrapper.eq(SysUser::getId, userId).set(SysUser::getPassword, newPassword);
+
+            // 执行更新，影响行数为 0 说明用户不存在或已被删除
+            if (userMapper.update(null, updateWrapper) <= 0) {
+                throw new UserException(ResultCode.USER_NOT_FOUND);
+            }
+            log.info("密码更新成功，用户ID：{}", userId);
+        } catch (Exception e) {
+            log.error("密码更新失败", e);
+            throw new UserException(ResultCode.USER_PASSWORD_UPDATE_FAILED);
+        }
+    }
 
 
 }
