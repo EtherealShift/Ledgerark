@@ -1,0 +1,19 @@
+
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/ledgerark?useUnicode=true&characterEncoding=UTF-8&serverTimezone=Asia/Shanghai&useSSL=false&allowPublicKeyRetrieval=true
+    username: root
+    password: abc123
+
+
+
+ledgerark:
+  ocr:
+    host: 103.139.212.226
+    voucher:
+      port: 8888
+      path: /cxfServerX/doThOcrFifteenRecon
+    invoice:
+      port: 8080
+      path: /invoice/test/ocrAndVerify

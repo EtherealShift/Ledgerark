@@ -121,9 +121,17 @@ public class ISysUserServiceImpl implements ISysUserService {
         // 分页查询，按 ID 正序
         Page<SysUser> page = PageParam.of(pageQuery).toPage();
         Page<SysUser> sysUserPage = userMapper.selectPage(page, null);
+        // 转换为 VO 列表
+        List<SysUserResponseVO> sysUserResponseVOList = sysUserPage.getRecords().stream()
+                .map(vo -> new SysUserResponseVO(
+                        vo.getId(), vo.getEmployeeId(), vo.getUserName(),
+                        vo.getNickName(), vo.getEmail(), vo.getPhoneNumber(),
+                        vo.getSexName(), vo.getStatusName(), vo.getAvatar(), vo.convertUserType()
+                )).toList();
+
 
         return SysPageResponseVO.builder()
-                .records(sysUserPage.getRecords())
+                .records(sysUserResponseVOList)
                 .total(sysUserPage.getTotal())
                 .size(sysUserPage.getSize())
                 .current(sysUserPage.getCurrent()).build();

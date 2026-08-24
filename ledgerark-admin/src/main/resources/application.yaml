@@ -4,11 +4,10 @@ server:
 spring:
   application:
     name: ledgerark
-  datasource:
-    driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/ledgerark?useUnicode=true&characterEncoding=UTF-8&serverTimezone=Asia/Shanghai&useSSL=false&allowPublicKeyRetrieval=true
-    username: root
-    password: abc123
+
+  ## 环境配置
+  profiles:
+    active: dev
 
 
 mybatis-plus:
@@ -18,14 +17,6 @@ mybatis-plus:
       logic-delete-field: delFlag
       logic-delete-value: 1
       logic-not-delete-value: 0
-
-## JWT配置
-#jwt:
-#  secret: MySecretKeyForJWT2025!@#$%^&*()_+SecureKeyHere
-#  expiration: 86400000  # 24小时（毫秒）
-#  refresh-expiration: 604800000  # 7天（毫秒）
-#  header: Authorization  # token头部名称
-#  token-prefix: "Bearer "  # token前缀
 
 
 ############## Sa-Token 配置 (文档: https://sa-token.com) ##############
