@@ -16,6 +16,7 @@ public class SaTokenConfigure implements WebMvcConfigurer {
                 .addPathPatterns("/**")
                 .excludePathPatterns("/sys/login/doLogin")
                 .excludePathPatterns("/sys/login/register")
+                .excludePathPatterns("/test/**")
                 // 排除 swagger 相关的路径
                 .excludePathPatterns("/swagger-ui/**")
                 .excludePathPatterns("/swagger-ui.html")

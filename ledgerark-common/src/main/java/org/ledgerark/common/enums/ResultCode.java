@@ -59,6 +59,11 @@ public enum ResultCode {
     FILE_SAVE_FAILED("B1002", "文件保存失败"),
     FILE_DELETE_FAILED("B1003", "文件删除失败"),
 
+    // ========== 第三方 OCR 服务 C10xx ==========
+    OCR_SERVICE_ERROR("C1001", "OCR 服务调用失败"),
+    OCR_RESPONSE_INVALID("C1002", "OCR 服务返回数据无效"),
+    OCR_RECOGNITION_FAILED("C1003", "凭证识别失败"),
+
     // ========== 业务相关 ==========
     BUSINESS_ERROR("B0002", "业务处理失败"),
     USERNAME_OR_PASSWORD_EMPTY("B0003", "用户名或密码为空"),

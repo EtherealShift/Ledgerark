@@ -11,9 +11,10 @@ spring:
 ledgerark:
   ocr:
     host: 103.139.212.226
+    username: test
     voucher:
       port: 8888
       path: /cxfServerX/doThOcrFifteenRecon
     invoice:
-      port: 8080
+      port: 8088
       path: /invoice/test/ocrAndVerify

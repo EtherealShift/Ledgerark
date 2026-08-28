@@ -5,6 +5,10 @@ spring:
   application:
     name: ledgerark
 
+#  servlet:
+#    multipart:
+#      max-file-size: 20MB
+#      max-request-size: 25MB
   ## 环境配置
   profiles:
     active: dev

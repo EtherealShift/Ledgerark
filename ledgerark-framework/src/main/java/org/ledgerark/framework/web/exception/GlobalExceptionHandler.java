@@ -2,16 +2,18 @@ package org.ledgerark.framework.web.exception;
 
 import org.ledgerark.common.entity.Result;
 import org.ledgerark.common.enums.ResultCode;
+import org.ledgerark.common.exception.base.BaseException;
 import cn.dev33.satoken.exception.NotLoginException;
 import cn.dev33.satoken.exception.NotPermissionException;
 import cn.dev33.satoken.exception.NotRoleException;
-import org.ledgerark.system.exception.UserException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
+import org.springframework.web.multipart.MaxUploadSizeExceededException;
+import org.springframework.web.multipart.support.MissingServletRequestPartException;
 
 import java.util.stream.Collectors;
 
@@ -30,14 +32,29 @@ public class GlobalExceptionHandler
         String message = e.getBindingResult().getFieldErrors().stream()
                 .map(FieldError::getDefaultMessage)
                 .collect(Collectors.joining(", "));
-        return Result.failure(ResultCode.PARAM_ERROR, message);
+        return Result.failure(ResultCode.PARAM_ERROR.getCode(), message);
     }
 
-    // 处理业务异常
-    @ExceptionHandler(UserException.class)
-    public Result<?> handlerUserException(UserException e) {
+    // 统一处理各业务模块异常
+    @ExceptionHandler(BaseException.class)
+    public Result<?> handlerBaseException(BaseException e) {
+        log.warn("业务异常, module={}, code={}, message={}",
+                e.getModule(), e.getCode(), e.getMessage());
         return Result.failure(e.getCode(), e.getMessage(), null);
     }
+//
+//    @ExceptionHandler(MissingServletRequestPartException.class)
+//    public Result<?> handlerMissingServletRequestPartException(MissingServletRequestPartException e) {
+//        return Result.failure(
+//                ResultCode.PARAM_MISSING.getCode(),
+//                "缺少必要的文件参数: " + e.getRequestPartName()
+//        );
+//    }
+//
+//    @ExceptionHandler(MaxUploadSizeExceededException.class)
+//    public Result<?> handlerMaxUploadSizeExceededException(MaxUploadSizeExceededException e) {
+//        return Result.failure(ResultCode.FILE_SIZE_EXCEEDED);
+//    }
 
     /**
      * 未登录 / token 无效

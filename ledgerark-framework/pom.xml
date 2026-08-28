@@ -36,5 +36,11 @@
             <!-- 不写版本号，由 Spring Boot BOM 统一管理，和 Boot 版本配套 -->
         </dependency>
 
+        <!-- MultipartBodyBuilder 的类签名需要 Reactive Streams API -->
+        <dependency>
+            <groupId>org.reactivestreams</groupId>
+            <artifactId>reactive-streams</artifactId>
+        </dependency>
+
     </dependencies>
 </project>
